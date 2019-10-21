@@ -12,6 +12,9 @@ library(tidymodels)
 # Load functions
 source("load_data.R")
 source("feature_engineering.R")
+source("model_rf_ranger.R")
+
+data_set <- load_data()
 
 # split the data into train and test data ----
 # This is not a time series so we don't care where the data is split.
@@ -45,10 +48,7 @@ test_data_FE <- bake(rec_prepped, test_data)
 
 
 # Run a model on the training data. -----
-shuttle_ranger <- 
-  rand_forest(trees = 100, mode = "classification") %>%
-  set_engine("ranger") %>% 
-  fit(Class~., train_data_FE)
+shuttle_ranger <- model_rf_ranger(train_data_FE)
 
 
 ### Metrics -----
@@ -64,11 +64,15 @@ probs <-
   test_data_FE %>% 
   bind_cols(prediction2)
 
-plot <- probs %>% 
+gain_curve_plot <- probs %>% 
   gain_curve(Class, .pred_Rad.Flow:.pred_Bpv.Open) %>%
   autoplot() + 
   ggtitle("Gain curve for every class")
 
-probs %>% 
+show(gain_curve_plot)
+
+roc_curve_plot <- 
+  probs %>% 
   roc_curve(Class, .pred_Rad.Flow:.pred_Bpv.Open) %>%
   autoplot()
+show(roc_curve_plot)
