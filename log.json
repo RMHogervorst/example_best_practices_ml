@@ -1,36 +1,36 @@
 [
   {
-    "timestamp": "2019-10-22 07:06:31",
+    "timestamp": "2019-10-22 16:37:30",
     "log_lvl": "INFO",
     "log_msg": "Initial log",
     "log_detail": ""
   },
   {
-    "timestamp": "2019-10-22 07:06:31",
+    "timestamp": "2019-10-22 16:37:30",
     "log_lvl": "INFO",
     "log_msg": "ML process started",
     "log_detail": ""
   },
   {
-    "timestamp": "2019-10-22 07:06:31",
+    "timestamp": "2019-10-22 16:37:30",
     "log_lvl": "INFO",
     "log_msg": "Loading shuttle data ...",
     "log_detail": ""
   },
   {
-    "timestamp": "2019-10-22 07:06:31",
+    "timestamp": "2019-10-22 16:37:30",
     "log_lvl": "INFO",
     "log_msg": "Make the data more real by removing values",
     "log_detail": ""
   },
   {
-    "timestamp": "2019-10-22 07:06:31",
+    "timestamp": "2019-10-22 16:37:30",
     "log_lvl": "INFO",
     "log_msg": "Splitting data into test and training set.",
     "log_detail": ""
   },
   {
-    "timestamp": "2019-10-22 07:06:31",
+    "timestamp": "2019-10-22 16:37:30",
     "log_lvl": "INFO",
     "log_msg": "The recipe contains the following steps: Missing imputation, Sign and logging, transformation of vars, centering vars, scaling vars",
     "log_detail": ""

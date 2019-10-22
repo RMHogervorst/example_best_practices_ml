@@ -32,6 +32,6 @@ create_FE_recipe <- function(train_data){
 
 
 print_steps <- function(recipe){
-  steps <- rec$steps %>% purrr::map_chr("id") %>% stringr::str_c(collapse = ", ")
+  steps <- recipe$steps %>% purrr::map_chr("id") %>% stringr::str_c(collapse = ", ")
   message(paste0("The recipe contains the following steps: ", steps))
 }

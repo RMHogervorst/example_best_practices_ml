@@ -15,6 +15,7 @@ load_data <- function(){
 
   # clean up
   detach("package:mlbench", unload=TRUE)
+  monitor_row_change(data_set, label = "input_data")
   return(data_set) # not strictly necessary but makes it more clear  
 }
 

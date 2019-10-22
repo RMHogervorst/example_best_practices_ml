@@ -10,9 +10,11 @@ library(tidymodels)
 setLogFile(logfile = "log.json")
 loggit("INFO","ML process started")
 # Load functions
+source("monitoring_functions.R")
 source("load_data.R")
 source("feature_engineering.R")
 source("model_rf_ranger.R")
+
 
 data_set <- load_data()
 
@@ -24,7 +26,8 @@ train_test_samples <- rsample::initial_split(data_set,prop = 3/4)
 message("Splitting data into test and training set.")
 train_data <- training(train_test_samples)
 test_data <- testing(train_test_samples)
-
+monitor_row_change(train_data, label = "training_data")
+monitor_row_change(test_data, label = "training_data")
 
 # optionally remove data we no longer need.
 rm(data_set, Shuttle)
@@ -56,9 +59,12 @@ shuttle_ranger <- model_rf_ranger(train_data_FE)
 
 ### Metrics -----
 prediction <- predict(shuttle_ranger, test_data_FE)
-test_data_FE %>% 
+metrics_result <- 
+  test_data_FE %>% 
   bind_cols(prediction) %>% 
   metrics(truth = Class, estimate = .pred_class)
+monitor_metrics(metrics_result)
+
 
 # A slight exploration of performance per class
 prediction2 <- predict(shuttle_ranger, test_data_FE,type = "prob")
