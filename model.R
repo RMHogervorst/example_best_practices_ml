@@ -4,11 +4,11 @@
 # train a model on the train data data
 # validate against the test data
 # and return some metrics.
-
-
+library(loggit) # start logger
 ## Load the packages  ----
 library(tidymodels)
-
+setLogFile(logfile = "log.json")
+loggit("INFO","ML process started")
 # Load functions
 source("load_data.R")
 source("feature_engineering.R")
@@ -18,10 +18,13 @@ data_set <- load_data()
 
 # split the data into train and test data ----
 # This is not a time series so we don't care where the data is split.
+
 set.seed(3456) # setting seed here, so we can run this part indepentenly
 train_test_samples <- rsample::initial_split(data_set,prop = 3/4)
+message("Splitting data into test and training set.")
 train_data <- training(train_test_samples)
 test_data <- testing(train_test_samples)
+
 
 # optionally remove data we no longer need.
 rm(data_set, Shuttle)

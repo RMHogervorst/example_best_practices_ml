@@ -3,7 +3,7 @@ create_FE_recipe <- function(train_data){
   # target Class, use everything else to predict
   # These next steps are only the procedure. We do not yet actually compute and 
   #  execute on the steps.
-  recipe(train_data, Class~.) %>% 
+  rec <- recipe(train_data, Class~.) %>% 
     # - deal with missings
     step_knnimpute(V1, V2, V3, V7, V9, 
                    neighbors = 6,
@@ -26,4 +26,12 @@ create_FE_recipe <- function(train_data){
     # - scale and center
     step_center(all_numeric(), id = "centering vars") %>% 
     step_scale(all_numeric(), id = "scaling vars")
+  print_steps(rec)
+  rec
+}
+
+
+print_steps <- function(recipe){
+  steps <- rec$steps %>% purrr::map_chr("id") %>% stringr::str_c(collapse = ", ")
+  message(paste0("The recipe contains the following steps: ", steps))
 }
